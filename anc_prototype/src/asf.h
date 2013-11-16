@@ -52,9 +52,15 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
+// From module: ADC - Analog-to-digital Converter
+#include <adc.h>
+
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
+
+// From module: DACC - Digital-to-Analog Converter
+#include <dacc.h>
 
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>

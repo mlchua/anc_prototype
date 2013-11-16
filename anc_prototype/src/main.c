@@ -342,41 +342,39 @@ static void start_adc(void)
 
 uint16_t cx[16] = { 0 };
 uint16_t cxIndex = 0;
-float32_t cw[16] = { 0 };
+float cw[16] = { 0 };
 uint16_t cwIndex = 0;
 uint16_t shx[16] = { 0 };
 uint16_t shxIndex = 0;
-float32_t shw[16] = {	0.0025,
+float shw[16] = {		0.0025,
 						0.0625,
 						0.1250,
 						0.2500,
 						0.1250,
 						0.0625,
 						0.0025,
-						-0.00000000030657,
+					   -0.00000000030657,
 						0.0000000026680,
-						-0.00000000018176,
+					   -0.00000000018176,
 						0.0000000015666,
-						-0.0000000043996,
-						-0.00000000084479,
+					   -0.0000000043996,
+					   -0.00000000084479,
 						0.0000000017471,
-						-0.0000000030584,
+					   -0.0000000030584,
 						0.0000000066447,
 					};
 uint16_t xhx[16] = { 0 };
 uint16_t xhxIndex = 0;
-const uint16_t step = 0.1;
+const float step = 0.1;
 
 static uint16_t anc_predict( uint16_t dac_val )
 {
 	cx[cxIndex] = dac_val;
-	float32_t predict = 0;
+	float predict = 0;
 	uint16_t i;
-	uint16_t idx = cxIndex;
 	for ( i = 0; i < 16; ++i )
 	{
-		predict += (float32_t) cx[idx] * cw[idx];
-		idx = (idx++) % 16;
+		predict += cx[i] * cw[i];
 	}
 	return (uint16_t) predict;
 }
@@ -391,13 +389,17 @@ static void anc_update( uint16_t input_dac, uint16_t error_dac )
 	for ( i = 0; i < 16; ++i )
 	{
 		filter += shx[idx] * shw[i];
-		idx = (idx++) % 16;
+		idx++;
+		if ( idx > 15 )
+		{
+			idx = 0;
+		}
 	}
 	xhx[xhxIndex] = filter;
 	
 	for ( i = 0; i < 16; ++i )
 	{
-		cw[i] += cw * step * xhx[i];
+		cw[i] += cw[i] * step *  xhx[i];
 	}
 }
 
@@ -513,7 +515,7 @@ void ADC_Handler(void)
 	if ((status & DACC_ISR_TXRDY) == DACC_ISR_TXRDY) {
 
 		dac_val = (int) g_adc_sample_data.us_value[0];
-		dac_val = anc_predict( dac_val );
+		//dac_val = anc_predict( dac_val );
 		dacc_write_conversion_data(DACC, dac_val);
 	}
 }
