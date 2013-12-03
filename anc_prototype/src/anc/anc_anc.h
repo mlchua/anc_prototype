@@ -10,18 +10,18 @@
 #define FXLMS_ZERO		2048
 
 struct {
-	uint16_t cx_idx;
-	uint16_t cw_idx;
+	uint16_t x_idx;
+	uint16_t C_idx;
 	uint16_t shx_idx;
-	uint16_t xhx_idx;
+	uint16_t xp_idx;
 	
 	float step;
 	
-	float cx[FXLMS_BUF_LEN];
-	float cw[FXLMS_BUF_LEN];
-	float shx[FXLMS_BUF_LEN];
-	float xhx[FXLMS_BUF_LEN];
-	float shw[FXLMS_BUF_LEN];
+	float x[FXLMS_BUF_LEN];
+	float C[FXLMS_BUF_LEN];
+	float sx[FXLMS_BUF_LEN];
+	float xp[FXLMS_BUF_LEN];
+	float W[FXLMS_BUF_LEN];
 	
 } anc_fxlms;
 

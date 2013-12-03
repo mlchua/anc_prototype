@@ -13,12 +13,8 @@ int main(void)
 	/* Initialize our ANC system */
 	initialize_anc();
 
-	while (1) {
-		/* Check if ADC sample is done. */
-		if (adc_sample.done == ADC_DONE_MASK) {
-			adc_sample.done = 0;
-		}
-	}
+	/* Loop indefinitely */
+	while (1) {};
 	
 	return 0;
 }
