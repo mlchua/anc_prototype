@@ -4,24 +4,17 @@
 
 void initialize_anc(void)
 {
-	
 	initialize_adc();
 	initialize_dacc();
 	
 	/* Allocate memory for anc_fxlms */
 	memset((void *)&anc_fxlms, 0x00, sizeof(anc_fxlms));
 	
-	anc_fxlms.C_idx		= 0;
 	anc_fxlms.x_idx		= 0;
-	anc_fxlms.sx_idx	= 0;
-	anc_fxlms.xp_idx	= 0;
-	
-	memset(anc_fxlms.C, 0, FXLMS_BUF_LEN);
+
 	memset(anc_fxlms.x, 0, FXLMS_BUF_LEN);
-	memset(anc_fxlms.sx, 0, FXLMS_BUF_LEN);
-	memset(anc_fxlms.xp, 0, FXLMS_BUF_LEN);
 		
-	anc_fxlms.step		= 0.0000000085;
+	anc_fxlms.step		= FXLMS_STEP;
 	
 	anc_fxlms.W[0]  = 0.0025;
 	anc_fxlms.W[1]  = 0.0625;
@@ -49,34 +42,25 @@ uint16_t anc_predict( uint16_t noise )
 	uint16_t w_idx = 0;
 	uint16_t x_idx = anc_fxlms.x_idx;
 	
-	for (w_idx = 0; w_idx < 16; ++w_idx)
-	{
+	for (w_idx = 0; w_idx < FXLMS_BUF_LEN; ++w_idx) {
 		predict += anc_fxlms.x[x_idx] * anc_fxlms.W[w_idx];
-		if (++x_idx == 16) { x_idx = 0; }
+		if (++x_idx == FXLMS_BUF_LEN) { x_idx = 0; }
 	}
 	return (uint16_t) predict;
 }
 
 void anc_update( uint16_t residual )
 {
-	uint16_t i;
-	uint16_t idx = anc_fxlms.sx_idx;
-	for ( i = 0; i < FXLMS_BUF_LEN; ++i )
-	{
-		anc_fxlms.xp[anc_fxlms.xp_idx] += anc_fxlms.sx[idx] * anc_fxlms.W[i];
-		idx++;
-		if ( idx > FXLMS_BUF_LEN - 1 )
-		{
-			idx = 0;
-		}
+	float step = anc_fxlms.step;
+	
+	uint16_t x_idx = 0;
+	float buff_step = 0;
+	for (x_idx = 0; x_idx < FXLMS_BUF_LEN; ++x_idx) {
+		buff_step += step * (float) residual * anc_fxlms.x[x_idx];
 	}
 	
-	for ( i = 0; i < FXLMS_BUF_LEN; ++i )
-	{
-		anc_fxlms.C[i] += ((float) residual - FXLMS_BUF_LEN) / FXLMS_BUF_LEN * anc_fxlms.step *  anc_fxlms.xp[i];
+	uint16_t w_idx = 0;
+	for (w_idx = 0; w_idx < FXLMS_BUF_LEN; ++w_idx) {
+		anc_fxlms.W[w_idx] = (1 - step) * anc_fxlms.W[w_idx] + buff_step;
 	}
-	
-	if ( ++anc_fxlms.x_idx == 16 ) { anc_fxlms.x_idx  = 0; }
-	if ( ++anc_fxlms.sx_idx == 16 )	{ anc_fxlms.sx_idx = 0; }
-	if ( ++anc_fxlms.xp_idx == 16 )	{ anc_fxlms.xp_idx = 0; }
 }
