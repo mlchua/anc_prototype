@@ -12,7 +12,7 @@
 struct {
 	uint16_t x_idx;
 	uint16_t C_idx;
-	uint16_t shx_idx;
+	//uint16_t sx_idx;
 	uint16_t xp_idx;
 	
 	float step;
