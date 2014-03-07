@@ -6,7 +6,7 @@ wait = 0;
 
 % generate input
 input_size = 1000;
-input = 2048 .* sin(1:input_size)' + 2048;
+input = 2048 .* sin(1:input_size)';
 
 % create input buffer
 buffer_size = 5;
@@ -25,23 +25,18 @@ error_values = zeros(input_size,1);
 
 for ii = 1:input_size
     % read in next value
-    buffer(:) = [(input(ii) - 2048); buffer(1:buffer_size-1)];
+    buffer(:) = [input(ii); buffer(1:buffer_size-1)];
     
     % predict next value
     predict = buffer' * -weights;
     if predict > 2048
-        predict = 2048;
+        predict = 2048
     elseif predict < -2048
-        predict = -2048;
+        predict = 0
     end
     
     % get error
-    error = input(ii) - 2048 + predict;
-    if error > 2048
-        error = 2048;
-    elseif error < -2048
-        error = -2048;
-    end
+    error = input(ii) + predict;
     
     % print out all values
     fprintf('Input = %6f \nPredicted = %6f \nError = %6f \n\n', ...
