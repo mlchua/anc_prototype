@@ -5,8 +5,8 @@
 #include "anc/anc_adc.h"
 #include "anc/anc_dacc.h"
 
-#define FXLMS_BUF_LEN	16
-#define FXLMS_STEP		0.0000000085
+#define FXLMS_BUF_LEN	5
+#define FXLMS_STEP		0.0000001
 #define FXLMS_MID		2048
 
 struct {
