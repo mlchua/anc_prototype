@@ -2,6 +2,7 @@
 #include "asf.h"
 #include "conf_board.h"
 #include "anc/anc_anc.h"
+#include "test.h"
 
 int main(void)
 {
@@ -12,6 +13,8 @@ int main(void)
 
 	/* Initialize our ANC system */
 	initialize_anc();
+	
+	run_test();
 
 	/* Loop indefinitely */
 	while (1) {};

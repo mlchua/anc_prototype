@@ -198,6 +198,20 @@
     <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <eraseonlaunchrule>1</eraseonlaunchrule>
+    <avrtool>com.atmel.avrdbg.tool.edbg</avrtool>
+    <com_atmel_avrdbg_tool_edbg>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <SwdClock>32000</SwdClock>
+        </InterfaceProperties>
+        <InterfaceName>SWD</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.edbg</ToolType>
+      <ToolNumber>ATML1803050200002987</ToolNumber>
+      <ToolName>XPRO-EDBG</ToolName>
+    </com_atmel_avrdbg_tool_edbg>
+    <avrtoolinterface>SWD</avrtoolinterface>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -373,7 +387,6 @@
       <Value>../src/ASF/sam/drivers/dacc</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
@@ -486,6 +499,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\sam\drivers\adc\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\test.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\adc\adc.h">
