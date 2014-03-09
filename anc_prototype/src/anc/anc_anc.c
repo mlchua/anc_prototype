@@ -20,8 +20,8 @@ void initialize_anc(void)
 	anc_fxlms.W[3]  = 0.9150;
 	anc_fxlms.W[4]  = 0.9298;
 	
-	//initialize_dacc();
-	//initialize_adc();
+	initialize_dacc();
+	initialize_adc();
 }
 
 uint16_t anc_predict( uint16_t noise )

@@ -14,7 +14,7 @@ int main(void)
 	/* Initialize our ANC system */
 	initialize_anc();
 	
-	run_test();
+	//run_test();
 
 	/* Loop indefinitely */
 	while (1) {};

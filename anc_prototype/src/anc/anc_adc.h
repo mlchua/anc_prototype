@@ -18,6 +18,10 @@ struct {
 	uint8_t		ch_num[NUM_CHANNELS];
 	uint16_t	ch_val[NUM_CHANNELS];
 	uint16_t	done;
+	uint16_t    idx;
+	uint16_t	pre[2000];
+	uint16_t	inp[2000];
+	uint16_t	err[2000];
 }adc_sample;
 
 void initialize_adc(void);

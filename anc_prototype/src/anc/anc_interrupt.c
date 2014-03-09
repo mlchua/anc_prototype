@@ -29,8 +29,14 @@ void ADC_Handler(void)
 
 	/* If ready for new data */
 	if ((status & DACC_ISR_TXRDY) == DACC_ISR_TXRDY) {
-		int predict = anc_predict( adc_sample.ch_val[0] );
+		int16_t predict = anc_predict( adc_sample.ch_val[0] );
 		dacc_write_conversion_data(DACC, predict);
+		if (adc_sample.idx < 2000) {
+			adc_sample.pre[adc_sample.idx] =  predict;
+			adc_sample.inp[adc_sample.idx] =  adc_sample.ch_val[0];
+			adc_sample.err[adc_sample.idx] =  adc_sample.ch_val[1];
+			++adc_sample.idx;
+		}
 		anc_update(adc_sample.ch_val[1] );
 	}
 }

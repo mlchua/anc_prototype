@@ -6,11 +6,7 @@ wait = 0;
 
 % generate input
 input_size = 1000;
-input = 2048 .* sin(1:input_size)' + 2048;
-
-less_idx = find( input < 3000); 
-more_idx = find( input > 1500);
-idx = intersect(less_idx, more_idx);
+input = 2048 .* sin(60*(1:input_size))' + 2048;
 
 % create input buffer
 buffer_size = 5;
@@ -26,7 +22,7 @@ weights(4,1) = 0.9150;
 weights(5,1) = 0.9298;
 
 % set step size
-step = 0.0000001;
+step = 0.00000001;
 
 % create vectors to hold values for predicted and error values
 predicted_values = zeros(input_size,1);
