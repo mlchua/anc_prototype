@@ -6,7 +6,7 @@ wait = 0;
 
 % generate input
 input_size = 1000;
-input = 2048 .* sin(60*(1:input_size))' + 2048;
+input = 2048 .* sin(0.01*(1:input_size))' + 2048;
 
 % create input buffer
 buffer_size = 5;

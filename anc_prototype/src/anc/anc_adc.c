@@ -10,7 +10,7 @@ void initialize_adc(void)
 	
 	/* ADC memory allocation */
 	memset((void *)&adc_sample, 0x00, sizeof(adc_sample));
-	adc_sample.idx = 0;
+	adc_sample.old = 2048;
 	
 	/* Initialize ADC 
 	 *		Formula: ADCClock = MCK / ( (PRESCAL+1) * 2 )

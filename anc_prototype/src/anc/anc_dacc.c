@@ -27,9 +27,10 @@ void initialize_dacc(void)
 	dacc_set_timing(DACC, 0x08, 0x00, 0x10);
 	
 	/* Disable TAG and select output channel DACC_CHANNEL */
-	dacc_set_channel_selection(DACC, 0x01);
+	dacc_set_channel_selection(DACC, 0x00);
 
 	/* Enable output channel DACC_CHANNEL */
+	dacc_enable_channel(DACC, 0x00);
 	dacc_enable_channel(DACC, 0x01);
 
 	/* Set up analog current */

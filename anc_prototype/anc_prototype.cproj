@@ -208,7 +208,7 @@
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.edbg</ToolType>
-      <ToolNumber>ATML1803050200002987</ToolNumber>
+      <ToolNumber>ATML1803050200002916</ToolNumber>
       <ToolName>XPRO-EDBG</ToolName>
     </com_atmel_avrdbg_tool_edbg>
     <avrtoolinterface>SWD</avrtoolinterface>
